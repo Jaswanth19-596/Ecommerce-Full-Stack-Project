@@ -1,0 +1,130 @@
+.navbar {
+  padding: 2rem;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.navbar-nav a {
+  font-size: 1.4rem;
+}
+
+.ecommerce-logo {
+  display: inline-block;
+  font-size: 2rem;
+  text-decoration: none;
+  color: var(--secondary-color);
+  font-weight: 700;
+  padding: 2rem;
+  letter-spacing: 10px;
+}
+
+.header-nav {
+  background-color: var(--primary-color);
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  /* height: 10rem; */
+}
+
+.navbar-brand {
+  color: white !important;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.nav-link {
+  color: #c9977f !important;
+  font-weight: 600;
+  border-bottom: 1px solid transparent;
+}
+
+.nav-link:hover {
+  border-bottom: 1px solid var(--secondary-color);
+}
+
+/* Search bar */
+.search-container {
+  margin: auto auto;
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.search {
+  width: 30rem;
+  border-radius: 2rem;
+  border: none;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-left: auto;
+  position: relative;
+}
+
+.search::placeholder {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #5e8699;
+  letter-spacing: 1px;
+}
+
+.search-button {
+  position: absolute;
+  right: 1rem;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  transition: all 0.2s;
+}
+
+.search-button:hover {
+  transform: scale(1.1);
+}
+.search-button:active {
+  transform: scale(0.9);
+}
+
+.search-icon {
+  background-color: none;
+}
+
+/* 710px */
+@media (max-width: 44.37em) {
+  .navbar-nav {
+    margin: 0 auto;
+  }
+}
+
+/* 600px */
+@media (max-width: 37.5em) {
+}
+
+/* 414px - IPHONE XR */
+@media (max-width: 25.87em) {
+  .ecommerce-logo {
+    font-size: 1.5rem;
+    padding-right: 0;
+    letter-spacing: 10px;
+  }
+
+  .search-container {
+    width: 40%;
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .navbar {
+    padding: 2rem 0;
+  }
+}
