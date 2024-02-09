@@ -1,6 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
+import { fileURLToPath } from 'url';
+import path from 'path';
+import { dirname } from 'path';
 // var cors = require('cors');
 import cors from 'cors';
 
@@ -30,6 +33,11 @@ app.use(cors()); // Cross origin resource sharing
 app.use(morgan('dev'));
 app.use(express.json());
 
+// Create a route for the following mentioned in zero ssl website
+app.get('/.well-known/pki-validation/', (req, res) => {
+  res.sendFile(filePath);
+});
+
 // Mounting the routes
 app.use('/api/v1/auth/', authRoutes);
 app.use('/api/v1/category/', categoryRoutes);
@@ -45,7 +53,7 @@ app.get('/api/v1/users', isLoggedIn, isAdmin, (req, res) => {
 // PORT
 const PORT = process.env.PORT || 8080;
 
-// Creating a server
+// Creating a server This listens to a server on http protol and on port 8080
 app.listen(PORT, () => {
   console.log(
     `Server started at port ${PORT} on ${process.env.DEV_MODE} Mode`.bgBlue

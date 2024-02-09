@@ -9,8 +9,7 @@ import cartContext from '../../store/cart-context';
 import Layout from '../../components/Layout/Layout';
 import { ImWarning } from 'react-icons/im';
 
-axios.defaults.baseURL =
-  'https://ecommerce-backend-jaswanth.onrender.com/api/v1';
+axios.defaults.baseURL = `${process.env.REACT_APP_API}/api/v1`;
 // axios.defaults.headers.common['Authorization'] =
 
 const initialState = {

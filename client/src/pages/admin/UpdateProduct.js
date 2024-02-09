@@ -1,37 +1,37 @@
-import React, { useState, useContext, useEffect, useReducer } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Select } from "antd";
-import axios from "axios";
-import authContext from "../../store/auth-context";
-import { toast } from "react-toastify";
+import React, { useState, useContext, useEffect, useReducer } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Select } from 'antd';
+import axios from 'axios';
+import authContext from '../../store/auth-context';
+import { toast } from 'react-toastify';
 const { Option } = Select;
 
 const initialProduct = {
-  name: "",
+  name: '',
   quantity: 0,
   price: 0,
-  category: "",
-  shipping: "",
-  description: "",
+  category: '',
+  shipping: '',
+  description: '',
 };
 
 const reducer = (prevState, action) => {
-  console.log("In the reducer");
+  console.log('In the reducer');
   console.log(prevState);
   switch (action.type) {
-    case "product":
+    case 'product':
       return action.product;
-    case "name":
+    case 'name':
       return { ...prevState, name: action.name };
-    case "quantity":
+    case 'quantity':
       return { ...prevState, quantity: action.quantity };
-    case "price":
+    case 'price':
       return { ...prevState, price: action.price };
-    case "category":
+    case 'category':
       return { ...prevState, category: action.category };
-    case "shipping":
+    case 'shipping':
       return { ...prevState, shipping: action.shipping };
-    case "description":
+    case 'description':
       return { ...prevState, description: action.description };
     default:
       return prevState;
@@ -41,7 +41,7 @@ const reducer = (prevState, action) => {
 const UpdateProduct = () => {
   const [state, dispatch] = useReducer(reducer, initialProduct);
 
-  console.log("State");
+  console.log('State');
   console.log(state);
 
   const params = useParams();
@@ -69,12 +69,12 @@ const UpdateProduct = () => {
         console.log(data);
         if (data.success) {
           toast.success(data.message);
-          navigate("/dashboard/admin/products");
+          navigate('/dashboard/admin/products');
         } else {
           throw new Error();
         }
       } catch (error) {
-        toast.error("Error while deleting the product");
+        toast.error('Error while deleting the product');
       }
     };
 
@@ -89,12 +89,12 @@ const UpdateProduct = () => {
       try {
         // Update an object with all the data
         const formData = new FormData();
-        formData.append("name", state.name);
-        formData.append("description", state.description);
-        formData.append("quantity", state.quantity);
-        formData.append("price", state.price);
-        image && formData.append("image", image);
-        formData.append("category", state.category._id);
+        formData.append('name', state.name);
+        formData.append('description', state.description);
+        formData.append('quantity', state.quantity);
+        formData.append('price', state.price);
+        image && formData.append('image', image);
+        formData.append('category', state.category._id);
 
         // Send a request to server to create the product
         const { data } = await axios.put(
@@ -103,7 +103,7 @@ const UpdateProduct = () => {
           {
             headers: {
               Authorization: authState.token,
-              "Content-Type": "multipart/form-data",
+              'Content-Type': 'multipart/form-data',
             },
           }
         );
@@ -113,12 +113,12 @@ const UpdateProduct = () => {
         // if updated succfully
         if (data.success) {
           toast.success(data.message);
-          navigate("/dashboard/admin/products");
+          navigate('/dashboard/admin/products');
         } else {
           toast.error(data);
         }
       } catch (error) {
-        toast.error("Something went wrong while updating product");
+        toast.error('Something went wrong while updating product');
       }
     };
 
@@ -160,14 +160,14 @@ const UpdateProduct = () => {
       );
 
       if (data.success) {
-        dispatch({ type: "product", product: data.data });
+        dispatch({ type: 'product', product: data.data });
       }
     } catch (error) {}
   };
 
   const getAllCategories = async () => {
     try {
-      const response = await axios.get("/category/categories", {
+      const response = await axios.get('/category/categories', {
         headers: {
           Authorization: authState.token,
         },
@@ -178,7 +178,7 @@ const UpdateProduct = () => {
         setCategories(response.data.data);
       }
     } catch (error) {
-      toast.error("something went wrong" + error.message);
+      toast.error('something went wrong' + error.message);
     }
   };
 
@@ -198,11 +198,11 @@ const UpdateProduct = () => {
         {/* Form - select -category */}
         <div className="m-1">
           <Select
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
             placeholder="Select Category"
             bordered={true}
             onChange={(value) =>
-              dispatch({ type: "category", category: value })
+              dispatch({ type: 'category', category: value })
             }
             value={state?.category.name}
           >
@@ -218,9 +218,9 @@ const UpdateProduct = () => {
         <div className="m-1 mt-3 ">
           <label
             className="btn btn-outline-secondary p-3"
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
           >
-            {image?.name ? image.name : "Upload Image"}
+            {image?.name ? image.name : 'Upload Image'}
             <input
               type="file"
               accept="image/*"
@@ -236,7 +236,7 @@ const UpdateProduct = () => {
             <img
               src={
                 imageForRendering ||
-                `https://ecommerce-backend-jaswanth.onrender.com/api/v1/products/get-image/${params.id}`
+                `${process.env.REACT_APP_API}/api/v1/products/get-image/${params.id}`
               }
               alt="product"
               width={300}
@@ -250,10 +250,10 @@ const UpdateProduct = () => {
           <input
             className="form-control"
             type="text"
-            name={"name"}
+            name={'name'}
             placeholder="Name"
             onChange={(event) =>
-              dispatch({ type: "name", name: event.target.value })
+              dispatch({ type: 'name', name: event.target.value })
             }
             required
             value={state.name}
@@ -263,11 +263,11 @@ const UpdateProduct = () => {
         {/* Form - Description Input */}
         <div className="m-1 mt-3">
           <textarea
-            style={{ resize: "none" }}
+            style={{ resize: 'none' }}
             className="form-control"
             placeholder="Description"
             onChange={(event) =>
-              dispatch({ type: "description", description: event.target.value })
+              dispatch({ type: 'description', description: event.target.value })
             }
             required
             value={state.description}
@@ -281,7 +281,7 @@ const UpdateProduct = () => {
             type="number"
             placeholder="quantity"
             onChange={(event) =>
-              dispatch({ type: "quantity", quantity: event.target.value })
+              dispatch({ type: 'quantity', quantity: event.target.value })
             }
             required
             value={state.quantity}
@@ -295,7 +295,7 @@ const UpdateProduct = () => {
             type="number"
             placeholder="price"
             onChange={(event) =>
-              dispatch({ type: "price", price: event.target.value })
+              dispatch({ type: 'price', price: event.target.value })
             }
             required
             value={state.price}
@@ -305,12 +305,12 @@ const UpdateProduct = () => {
         {/* Form - Shipping Input */}
         <div className="m-1 mt-3">
           <Select
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
             placeholder="Shipping"
             onChange={(value) =>
-              dispatch({ type: "shipping", shipping: value })
+              dispatch({ type: 'shipping', shipping: value })
             }
-            value={state.shipping ? "Yes" : "No"}
+            value={state.shipping ? 'Yes' : 'No'}
           >
             <Option value="1">Yes</Option>
             <Option value="0">No</Option>
@@ -323,7 +323,7 @@ const UpdateProduct = () => {
             <button
               onClick={handleUpdate}
               className="btn btn-primary"
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
             >
               Update
             </button>
@@ -331,7 +331,7 @@ const UpdateProduct = () => {
           <div className="m-1 flex-grow-1">
             <button
               className="btn btn-danger"
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
               onClick={handleDelete}
             >
               Delete

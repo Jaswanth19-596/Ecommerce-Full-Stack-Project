@@ -73,7 +73,6 @@ const HomePage = () => {
         setCategories(data.data);
       }
     } catch (error) {
-      console.log(error);
       toast.error('Error while fetching categories');
     }
   };
@@ -336,7 +335,7 @@ const HomePage = () => {
                       >
                         <div className="card product" key={product._id}>
                           <img
-                            src={`https://ecommerce-backend-jaswanth.onrender.com/api/v1/products/get-image/${product._id}`}
+                            src={`${process.env.REACT_APP_API}/api/v1/products/get-image/${product._id}`}
                             className="card-img-top product-image"
                             alt="..."
                           />

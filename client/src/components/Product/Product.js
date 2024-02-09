@@ -4,11 +4,10 @@ import './../../utilitycss/product.css';
 
 const Product = (props) => {
   const { product, handleAddToCart } = props;
-
   return (
     <div className="card product margin-product" key={product._id}>
       <img
-        src={`https://ecommerce-backend-jaswanth.onrender.com/api/v1/products/get-image/${product._id}`}
+        src={`${process.env.REACT_APP_API}/api/v1/products/get-image/${product._id}`}
         className="card-img-top product-image"
         alt="..."
       />

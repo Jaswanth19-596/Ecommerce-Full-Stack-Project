@@ -18,7 +18,7 @@ const Header = () => {
   // Store the cart Items of the user in db
   const storeCartItems = async () => {
     try {
-      const { data } = await axios.put(
+      await axios.put(
         '/auth/update-cart',
         {
           cart: cartState,

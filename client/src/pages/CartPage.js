@@ -132,7 +132,7 @@ const Cart = () => {
               <tr>
                 <td>
                   <img
-                    src={`https://ecommerce-backend-jaswanth.onrender.com/api/v1/products/get-image/${item._id}`}
+                    src={`${process.env.REACT_APP_API}/api/v1/products/get-image/${item._id}`}
                     alt=""
                     style={{ width: '100px', height: '80px' }}
                   />
@@ -174,7 +174,6 @@ const Cart = () => {
                 <button
                   className="btn btn-outline-danger"
                   onClick={() => {
-                    console.log('Clicked');
                     navigate('/login', { state: location.pathname });
                   }}
                 >

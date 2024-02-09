@@ -16,14 +16,11 @@ var gateway = new braintree.BraintreeGateway({
 });
 
 export const createProduct = async (req, res) => {
-  console.log('Server loki ochara');
   try {
     // Getting the data from express-formiddable
     const { name, slug, price, description, quantity, category, shipping } =
       req.fields;
     const { image } = req.files;
-    console.log('Hehe');
-    console.log(req.fields);
 
     // creating a document
     const product = new productModel({ ...req.fields, slug: slugify(name) });
@@ -313,7 +310,6 @@ export const getProductsOnSearchKeyword = async (req, res) => {
 
     const products = await productModel.find(query).select('-image');
 
-    console.log(products);
 
     res.status(200).send({
       success: true,
@@ -374,7 +370,6 @@ export const brainTreeTokenController = async (req, res) => {
 export const brainTreePaymentController = async (req, res) => {
   try {
     const { cart, nonce } = req.body;
-    console.log(cart);
     let total = 0;
     cart.map((i) => (total += i.price));
 
@@ -389,7 +384,6 @@ export const brainTreePaymentController = async (req, res) => {
         },
       },
       function (error, result) {
-        console.log(cart);
         if (result) {
           const order = new orderModel({
             products: cart,

@@ -28,14 +28,11 @@ const ProductDetails = () => {
   const getSimilarProducts = async () => {
     try {
       const pid = product._id;
-      console.log(pid);
       const cid = product.category._id;
-      console.log(cid);
 
       const { data } = await axios.get(
         `/products/get-similar-products/${cid}/${pid}`
       );
-      console.log(data);
       if (!data.success) throw new Error();
 
       setSimilarProducts(data.data);
@@ -75,14 +72,14 @@ const ProductDetails = () => {
 
         <div className="container-fluid product-detail-container">
           <div className="row product-detail-container product-detail-container-top">
-            <div className="col-12 col-sm-6 col-lg-5">
+            <div className="col-12 col-sm-6 col-lg-5 col-xl-4 justify-content-center">
               <img
-                src={`https://ecommerce-backend-jaswanth.onrender.com/api/v1/products/get-image/${product?._id}`}
+                src={`${process.env.REACT_APP_API}/api/v1/products/get-image/${product?._id}`}
                 className="card-img-top product-detail-image"
                 alt="..."
               />
             </div>
-            <div className="col-10 col-sm-6 col-lg-5 product-detail-description">
+            <div className="col-10 col-sm-6 col-lg-5 col-xl-6 product-detail-description">
               <h3 className="product-detail-description-heading">
                 {product?.name}
               </h3>
@@ -115,7 +112,7 @@ const ProductDetails = () => {
                 >
                   <div className="card product" key={product._id}>
                     <img
-                      src={`https://ecommerce-backend-jaswanth.onrender.com/api/v1/products/get-image/${product._id}`}
+                      src={`${process.env.REACT_APP_API}/api/v1/products/get-image/${product._id}`}
                       className="card-img-top product-image"
                       alt="..."
                     />
@@ -145,7 +142,11 @@ const ProductDetails = () => {
                 </div>
               );
             })}
-            {similarProducts.length === 0 && <p>No Similar products </p>}
+            {similarProducts.length === 0 && (
+              <p className="no-similar-products">
+                There are no Similar products for this Product !!
+              </p>
+            )}
           </div>
         </div>
       </div>

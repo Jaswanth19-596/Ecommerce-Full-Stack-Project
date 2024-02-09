@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
-import authContext from "../store/auth-context";
-import Spinner from "../components/Spinner/Spinner";
-import axios from "axios";
-import { Outlet } from "react-router-dom";
+import React, { useContext, useEffect, useState } from 'react';
+import authContext from '../store/auth-context';
+import Spinner from '../components/Spinner/Spinner';
+import axios from 'axios';
+import { Outlet } from 'react-router-dom';
 
 const MakeRoutePrivate = () => {
   const [authState] = useContext(authContext);
@@ -32,11 +32,11 @@ const MakeRoutePrivate = () => {
 
     checkIsUserLoggedIn();
   }, [authState?.token]);
-  const redirectMessage = "You are not logged in , Redirecting to login page";
+  const redirectMessage = 'You are not logged in , Redirecting to login page';
   return (
     <>
       {ok === false ? (
-        <Spinner path={"/login"} redirectMessage={redirectMessage} />
+        <Spinner path={'/login'} redirectMessage={redirectMessage} />
       ) : (
         <Outlet />
       )}

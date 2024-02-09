@@ -1,18 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import { useParams } from 'react-router-dom';
 import Layout from '../components/Layout/Layout';
+import Product from '../components/Product/Product';
 import axios from 'axios';
 import './../utilitycss/product.css';
 import './CategoryProducts.css';
 import Loading from './../components/Loading';
 import NoProductAvailable from '../components/NoProductAvailabe/NoProductAvailable';
+import cartContext from '../store/cart-context';
+import hottoast from 'react-hot-toast';
 
 const CategoryProducts = () => {
   const { slug } = useParams();
+  const [cartState, setCartState] = useContext(cartContext);
 
   const [products, setProducts] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleAddToCart = (product) => {
+    setCartState([...cartState, product]);
+    localStorage.setItem('cartItems', JSON.stringify([...cartState, product]));
+    // toast.success('Added');
+    hottoast.success('Added to cart');
+  };
 
   const getProductsOnCategory = async () => {
     try {
@@ -47,37 +58,13 @@ const CategoryProducts = () => {
               products?.map((product) => {
                 return (
                   <div
-                    className="col-10 col-sm-6 col-md-5 col-lg-4"
+                    className="col-10 col-sm-6 col-md-6 col-lg-4"
                     key={product._id}
                   >
-                    <div
-                      className="card product margin-product"
-                      key={product._id}
-                    >
-                      <img
-                        src={`https://ecommerce-backend-jaswanth.onrender.com/api/v1/products/get-image/${product._id}`}
-                        className="card-img-top product-image"
-                        alt="..."
-                      />
-                      <div className="card-body product-body">
-                        <h5 className="card-title product-heading">
-                          {product.name}
-                        </h5>
-
-                        <p className="product-description">
-                          {product.description.substring(0, 130)}...
-                        </p>
-                        <p className="product-price">${product.price}</p>
-                        <Link to={`/products/product-details/${product.slug}`}>
-                          <button className="product-button more-details-button">
-                            More Details
-                          </button>
-                        </Link>
-                        <button className="product-button add-to-cart-button">
-                          Add to cart
-                        </button>
-                      </div>
-                    </div>
+                    <Product
+                      product={product}
+                      handleAddToCart={handleAddToCart}
+                    />
                   </div>
                 );
               })}

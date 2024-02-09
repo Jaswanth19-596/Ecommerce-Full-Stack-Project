@@ -22,12 +22,10 @@ export const registerController = async (req, res) => {
       res.send({ error: 'address is required' });
     }
 
-
     // Check if email exists
     const isUserExists = await userModel.findOne({ email });
 
     if (isUserExists) {
-      console.log('Usser existed already');
       return res.status(200).send({
         success: false,
         message: 'User Already registered , Please login',
@@ -155,8 +153,6 @@ export const updateCart = async (req, res) => {
   try {
     const cart = req.body.cart;
     const user = req.body.user;
-
-    console.log(cart);
 
     const response = await userModel.findOneAndUpdate(
       { email: user.email },
