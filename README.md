@@ -2,6 +2,10 @@
 
 ECartify is a full-stack e-commerce web application built using the MERN (MongoDB, Express.js, React.js, Node.js) stack. This project aims to provide users with a seamless shopping experience, from browsing products to securely checking out.
 
+## Website
+
+Visit the live website: [ECartify](http://www.ecartify.net/)
+
 ## Features
 
 - **User Authentication**: Implemented a secure user authentication and authorization system using JSON Web Tokens (JWT) to safeguard user accounts.
@@ -38,3 +42,4 @@ To run this project locally, follow these steps:
 3. Install dependencies for both frontend and backend by using `npm install`.
 4. Run the frontend using : `npm start`
 5. Run the backend using : `npm start`
+6. Open your browser and navigate to `http://localhost:3000` to view the application.
